@@ -1,0 +1,136 @@
+<html>
+
+ <head>
+   <title> Grape kinds </title>
+
+   <script>//             0                                1                                2                          3                          4
+       var pics = ["<img src = 'pinotnoir.jpg' width ='45%' height ='45%'>", " <img src = 'merlot.jpg'width ='45%' height ='45%'>", " <img src = 'sauv.jpg' width ='45%' height ='45%'>", " <img src = 'zin.jpg' width ='45%' height ='45%'>", " <img src = 'k.jpg' width ='45%' height ='45%'>"];
+       var solution = ["Pinot Noir", "Merlot", "Sauvignon blanc", "Zinfandel", "Kyoho"];
+       var answers = [];
+       var index = 0;//add one to this in getusersanswers
+       var score = 0;
+
+       function getuseranswers()
+       {
+         //where you populate the answers array
+         //refer back to pop array
+         // once index equals pics.length
+         //then we would go to another function (cheack answers)
+         answers[index] = document.getElementById('guesses').value;
+         index = index +1;
+         if(index >= 4)
+         {
+           checkanswers();
+         }
+         document.getElementById('check').innerHTML= pics[index];
+
+       }
+
+       function checkanswers()
+       {
+         //using a loop, loop through the values in solutions and check if they are right
+         // if answer[i]== solution[i], then ass one to a score variable
+         // once the loop terminates and checks all "checkanswers"
+         //go to (display Result)
+         for (var count = 0; count < 5; count++)
+         {
+           if (answers[count] == solution[count])
+           {
+             score = score + 1;
+           }
+         }
+         displayresult();
+       }
+
+       function displayresult()
+       {
+         // send a message to the span tag with the results (how many got correct)
+         // 4/5, 2/5 etc.
+         var table = "<br>The RESULTS<br>" + score + "/5<br>";
+         for ( var i = 0; i < 5; i++)
+         {
+           table = table + "Correct Answer : " + solution[i]+ "<br>" + " What you wrote: " + answers[i] + "<br>";
+         }
+         document.getElementById("tab").innerHTML = table;
+         document.getElementById('hideit').style.visibility= "visible";
+         document.getElementById('tab').style.visibility= "visible";
+       }
+
+       function reset()
+       {
+         //sets user's answer array back to empty usiing .splice
+         // score = 0
+         // index = 0
+         // hide the reset button .style.visibility = "hidden";
+         score = 0;
+         index = 0;
+         answers.splice(0,5);
+         document.getElementById('check').innerHTML= pics[index];
+         document.getElementById('hideit').style.visibility= "hidden";
+         document.getElementById('tab').style.visibility= "hidden";
+
+       }
+
+       function hide()
+       {
+         //hide the reset button using document.getElementById('id').style.visibility ="hidden";
+         document.getElementById('hideit').style.visibility= "hidden";
+       }
+   </script>
+
+   <style>
+     body {
+       background-image: url("bl.jpg");
+       font-size: 60px;
+       font-family: fantasy;
+       font-weight: 400;
+     }
+       .everything {
+            max-width: 1000px;
+            margin: auto;
+            text-align: center;
+            padding-top: 100px;
+          }
+        .button1{
+          background-color: white;
+          text-align: center;
+          font-family: fantasy;
+          color: purple;
+          border-radius: 50%;
+        }
+        .button2 {
+          background-color: purple;
+          text-align: center;
+          font-family: fantasy;
+          color: white;
+          border-radius: 50%;
+        }
+        #tab{
+          color: white;
+          font-family: fantasy;
+          font-size: 20px;
+        }
+        h1{
+          font-family: cursive;
+          font-size: 40px;
+          color: White;
+        }
+        h1:hover {
+          background-image: url('grass.jpg');
+        }
+
+   </style>
+ </head>
+
+ <body onload= "hide()">
+   <div class=" everything">
+     <h1> Grape to see you! Ready to test your knowledge? </h1>
+   <input type = "text" id = "guesses">
+   <input type = "button" value = "SUBMIT" onclick= "getuseranswers()" class = "button1">
+   <input type = "button"  id = "hideit" value = "TRY AGAIN" onclick= "reset()" style="visibility: hidden;" class = "button2">
+   <br>
+   <span id= "check"><img src = 'pinotnoir.jpg' width ='55%' height ='55%'> </span>
+   <span id= "tab"> </span>
+ </div>
+ </body>
+</html>
